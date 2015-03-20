@@ -1,4 +1,8 @@
 postTo=""
 
 run:
-	sh ./wakaru.sh ${postTo}
+	./bin/wakaru ${postTo}
+
+setup:
+	cp token.sample token
+
