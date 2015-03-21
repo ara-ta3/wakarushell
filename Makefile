@@ -5,4 +5,5 @@ run:
 
 setup:
 	cp token.sample token
+	cp setting.json.sample setting.json
 

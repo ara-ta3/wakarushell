@@ -1,1 +1,6 @@
 token
+setting.json
+logs/*
+!logs/.gitkeep
+*.swp
+

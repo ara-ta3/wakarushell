@@ -1,0 +1,15 @@
+{
+    "users":[
+        {
+            "icon":"",
+            "user":"slackBot"
+        }
+    ],
+    "channels" :[
+        "#first_channel_used_by_c_option"
+    ],
+    "default" : {
+        "channel" : "#this_is_default_channel"
+    }
+}
+
