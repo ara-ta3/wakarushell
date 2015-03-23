@@ -27,8 +27,9 @@ dry_run=0
 target_channel=
 dir=`dirname $0`/..
 jq=${dir}/lib/jq
+type=0
 
-while getopts :c:dh OPTION
+while getopts :c:ndhs OPTION
 do
     case $OPTION in
         h)
@@ -39,6 +40,12 @@ do
         ;;
         d)
             dry_run=1
+        ;;
+        n)
+            type=1
+        ;;
+        s)
+            type=2
         ;;
     esac
 done
@@ -60,10 +67,18 @@ fi
 usernameAndIcon=`userAndIcon $(($RANDOM % ${size}))`
 username=`echo $usernameAndIcon |awk '{print $1}'`
 icon=`echo $usernameAndIcon |awk '{print $2}'`
+text="わかる"
+if [ $type -eq 1 ]; then
+    text="わからない"
+fi
+
+if [ $type -eq 2 ]; then
+    text="せやな"
+fi
 
 if [ $dry_run -eq 1 ]; then
-    echo curl -F token=`cat ${dir}/token` -F channel=${channel} -F text="わかる" -F username=${username} -F icon_url=${icon} https://slack.com/api/chat.postMessage
+    echo curl -F token=`cat ${dir}/token` -F channel=${channel} -F text=${text} -F username=${username} -F icon_url=${icon} https://slack.com/api/chat.postMessage
 else
-    curl -F token=`cat ${dir}/token` -F channel=${channel} -F text="わかる" -F username=${username} -F icon_url=${icon} https://slack.com/api/chat.postMessage >> ${dir}/logs/`date "+%Y_%m_%d_%H_%M"`.log
+    curl -F token=`cat ${dir}/token` -F channel=${channel} -F text=${text} -F username=${username} -F icon_url=${icon} https://slack.com/api/chat.postMessage >> ${dir}/logs/`date "+%Y_%m_%d_%H_%M"`.log
 fi
 
